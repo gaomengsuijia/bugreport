@@ -1,0 +1,35 @@
+
+{% extends 'base.html' %}
+<title>{% block title %}首页{% endblock %}</title>
+
+{% block content %}
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        项目列表
+        </div>
+        <div class="panel-body">
+        <p>目前所有的项目如下</p>
+        </div>
+        <table class="table">
+            <tr>
+            <th>项目名称</th>
+            <th>项目时间</th>
+            <th>项目负责人</th>
+            <th>项目详情</th>
+            <th>删除项目</th>
+            <th>导出报告</th>
+            </tr>
+            <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

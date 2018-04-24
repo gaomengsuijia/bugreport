@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+<title>{% block title %}新增漏洞{% endblock %}</title>
+{% block link %}
+
+    <script src="/static/plugins/ckeditor/ckeditor.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        新增漏洞
+        </div>
+        <div class="panel-body">
+        <form >
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">漏洞名称：</div>
+                    <input type="text" class="form-control" placeholder="漏洞名称">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">漏洞风险：</div>
+                    <input type="text" class="form-control" placeholder="漏洞风险">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">风险等级：</div>
+                    <input type="text" class="form-control" placeholder="风险等级">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">问题链接：</div>
+                    <input type="text" class="form-control" placeholder="问题链接">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">漏洞详情：</div>
+                    <textarea id="ck-editor" name="content" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                    <input type="submit" class="form-control" value="新增漏洞">
+            </div>
+
+        </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+
+{% block boot_script %}
+     <script>
+         CKEDITOR.replace( 'ck-editor' );
+        CKEDITOR.editorConfig = function( config ) {
+            //config.language = 'es';
+            config.uiColor = '#F7B42C';
+            config.height = 500;
+            config.toolbarCanCollapse = true;
+        };
+    </script>
+{% endblock %}

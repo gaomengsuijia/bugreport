@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+<title>{% block title %}项目详情{% endblock %}</title>
+{% block content %}
+
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        项目详情
+        </div>
+        <div class="panel-body">
+        <p>该项目的漏洞如下</p>
+        </div>
+        <table class="table">
+            <tr>
+            <th>漏洞名称</th>
+            <th>漏洞等级</th>
+            <th>漏洞详情</th>
+            <th>漏洞删除</th>
+            </tr>
+            <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>1</td>
+            </tr>
+        </table>
+    </div>
+
+
+    <form class="form-inline">
+        <div class="form-group"> <label>漏洞模板：</label>
+            <select class="form-control">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+         <div class="form-group">
+            <button class="button btn-default btn-lg">新增漏洞</button>
+        </div>
+
+    </form>
+
+
+</div>
+
+
+
+{% endblock %}
