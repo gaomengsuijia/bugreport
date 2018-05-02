@@ -1,0 +1,41 @@
+{% extends 'mybuggreport/base.html' %}
+<title>{% block title %}登录{% endblock %}</title>
+
+{% block content %}
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        用户登录
+        </div>
+        <div class="panel-body">
+        <form action="." method="post">{% csrf_token %}
+
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">登录名称：</div>
+                    {{ form.username }}
+{#                    <input type="text" class="form-control" placeholder="请输入登录名称">#}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">登录密码：</div>
+                    {{ form.password }}
+{#                    <input type="text" class="form-control" placeholder="请输入登录密码">#}
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                    <input type="submit" class="form-control" value="登录">
+            </div>
+
+        </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

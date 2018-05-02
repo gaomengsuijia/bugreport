@@ -10,7 +10,7 @@ def addbug(request):
     :return:
     '''
 
-    return render(request,"add_bug.html")
+    return render(request,"mybuggreport/add_bug.html")
 
 def index(request):
     '''
@@ -18,7 +18,7 @@ def index(request):
     :param request:
     :return:
     '''
-    return render(request,"index.html")
+    return render(request,"mybuggreport/index.html")
 
 
 
@@ -28,7 +28,7 @@ def addproject(request):
     :param request:
     :return:
     '''
-    return render(request,"addproject.html")
+    return render(request,"mybuggreport/addproject.html")
 
 
 
@@ -37,4 +37,4 @@ def projectdetail(request):
     项目详情
     '''
 
-    return render(request,"projectdetail.html")
+    return render(request,"mybuggreport/projectdetail.html")
