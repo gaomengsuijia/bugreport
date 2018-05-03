@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
-from account.forms import LoginForm
+from account.forms import LoginForm,RegisterForm,UserProfileForm
 # Create your views here.
 from django.contrib.auth import authenticate,login
 from django.contrib.auth import views
@@ -43,4 +43,21 @@ def register(request):
     :param request:
     :return:
     '''
-    return render(request,'mybuggreport/register.html')
+    if request.method == "POST":
+        print(request.POST)
+        user_form = RegisterForm(request.POST)
+        userpro_form = UserProfileForm(request.POST)
+        if user_form.is_valid()*userpro_form.is_valid():
+            new_user = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data['password'])
+            new_user.save()
+            new_profile = userpro_form.save(commit=False)
+            new_profile.user = new_user
+            new_profile.save()
+            return HttpResponse("register success")
+        else:
+            return HttpResponse("register fail")
+    else:
+        user_form = RegisterForm()
+        userpro_form = UserProfileForm()
+        return render(request,'mybuggreport/register.html',{"form":user_form,"user_form":userpro_form})
