@@ -9,27 +9,82 @@
         项目列表
         </div>
         <div class="panel-body">
-        <p>目前所有的项目如下</p>
+            {% if user.is_authenticated %}
+                <button class="default btn-lg" id="addproject">新增项目</button>
+            {% endif %}
         </div>
         <table class="table">
             <tr>
-            <th>项目名称</th>
-            <th>项目时间</th>
-            <th>项目负责人</th>
-            <th>项目详情</th>
-            <th>删除项目</th>
-            <th>导出报告</th>
+                <th>序号</th>
+                <th>项目名称</th>
+                <th>项目时间</th>
+                <th>项目负责人</th>
+                <th>项目详情</th>
+                <th>删除项目</th>
+                <th>导出报告</th>
             </tr>
+            {% for each in projects %}
             <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ each.name }}</td>
+                <td>{{ each.projecttime }}</td>
+                <td>{{  each.projectleader}}</td>
+                <td><a href="{% url "projectdetail" each.id %}">项目漏洞汇总</a></td>
+                <td><a name = "delete" href="javascript:" onclick="del_project(this,{{ each.id }})">删除项目</a></td>
+                <td><a href="#">导出报告</a></td>
             </tr>
+                {% empty %}
+                <p>暂无项目</p>
+            {% endfor %}
         </table>
     </div>
 </div>
+<script>
 
+    //删除项目
+
+    function del_project(the,project_id){
+        var project_name = $(the).parents('tr').children('td').eq(1).text();
+    layer.open({
+	    type: 1,
+	    skin: "layui-layer-rim",
+	    area: ["400px", "200px"],
+	    title: "删除项目",
+	    content: '<div class="text-center" style="margin-top:20px"><p>是否确定删除《'+project_name+'》</p></div>',
+	    btn:['确定', '取消'],
+	    yes: function(){
+		$.ajax({
+		    url: '{% url "delproject" %}',
+		    type:"POST",
+		    data: {"project_id":project_id},
+		    success: function(e){
+			if(e=="1"){
+			    parent.location.reload();
+			    layer.msg("has been deleted.");
+			}else if(e=="3"){
+			    layer.msg("没有登录");
+            }
+			else{
+			    layer.msg("删除失败");
+			}
+
+		    },
+		})
+	    },
+	});
+    }
+
+    //添加项目弹窗
+
+    $('#addproject').on('click', function(){
+    layer.open({
+      type: 2,
+      title:"添加项目",
+      area: ['500px', '360px'],
+      shadeClose: true, //点击遮罩关闭
+      content: "{% url 'addproject' %}",
+    });
+  });
+
+</script>
 {% endblock %}
