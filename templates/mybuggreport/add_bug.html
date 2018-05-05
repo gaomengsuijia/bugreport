@@ -13,11 +13,11 @@
         新增漏洞
         </div>
         <div class="panel-body">
-        <form >
+        <form onclick="return false;">
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-addon">漏洞名称：</div>
-                    <input type="text" class="form-control" placeholder="漏洞名称">
+                    <input type="text" class="form-control" placeholder="漏洞名称" name="bug">
                 </div>
             </div>
 
@@ -35,12 +35,6 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-addon">问题链接：</div>
-                    <input type="text" class="form-control" placeholder="问题链接">
-                </div>
-            </div>
 
 
             <div class="form-group">
@@ -51,7 +45,7 @@
             </div>
 
             <div class="form-group">
-                    <input type="submit" class="form-control" value="新增漏洞">
+                    <input type="submit" class="form-control" value="新增漏洞" id = "btnaddbug">
             </div>
 
         </form>
@@ -67,6 +61,7 @@
 
 {% block boot_script %}
      <script>
+     //初始化富文本
          CKEDITOR.replace( 'ck-editor' );
         CKEDITOR.editorConfig = function( config ) {
             //config.language = 'es';
@@ -74,5 +69,11 @@
             config.height = 500;
             config.toolbarCanCollapse = true;
         };
+        //新增漏洞
+     $("#btnaddbug").click(function () {
+
+     })
     </script>
+
+
 {% endblock %}

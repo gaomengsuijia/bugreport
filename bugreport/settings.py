@@ -84,29 +84,29 @@ WSGI_APPLICATION = 'bugreport.wsgi.application'
 # }
 
 #家里数据库
-# DATABASES = {
-#     'default': {
-#         #'ENGINE': 'django.db.backends.sqlite3',
-#         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         'ENGINE': 'django.db.backends.mysql',
-#         'USER':'root',
-#         'PASSWORD':'123456',
-#         'NAME':'bugreport',
-#         'HOST':'localhost',
-#     }
-# }
-#公司数据库
 DATABASES = {
     'default': {
         #'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.mysql',
         'USER':'root',
-        'PASSWORD':'hu2006615',
+        'PASSWORD':'123456',
         'NAME':'bugreport',
         'HOST':'localhost',
     }
 }
+#公司数据库
+# DATABASES = {
+#     'default': {
+#         #'ENGINE': 'django.db.backends.sqlite3',
+#         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'ENGINE': 'django.db.backends.mysql',
+#         'USER':'root',
+#         'PASSWORD':'hu2006615',
+#         'NAME':'bugreport',
+#         'HOST':'localhost',
+#     }
+# }
 
 
 # Password validation

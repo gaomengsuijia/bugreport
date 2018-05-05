@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^$', mybugreport_views.index,name="index"),
     url(r'^addproject/$', mybugreport_views.addproject,name="addproject"),
     url(r'^projectdetail/(\d+)/$', mybugreport_views.projectdetail,name="projectdetail"),
-    url(r'^addbug/$', mybugreport_views.addbug,name="addbug"),
+    url(r'^addbug/(\d+)/(\d+)/$', mybugreport_views.addbug,name="addbug"),
     url(r'^delproject/$', mybugreport_views.delproject,name="delproject"),
     url(r'^account/',include('account.urls',namespace='account',app_name='account')),
     ]

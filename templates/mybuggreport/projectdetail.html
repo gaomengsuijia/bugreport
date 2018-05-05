@@ -17,12 +17,16 @@
             <th>漏洞详情</th>
             <th>漏洞删除</th>
             </tr>
+            {% for each in bugs %}
             <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>1</td>
+                <td>each.bug_name</td>
+                <td>each.bug_leval</td>
+                <td><a href="#">查看详情</a></td>
+                <td><a href="#">删除</a></td>
             </tr>
+                {% empty %}
+                <p>暂无漏洞</p>
+            {% endfor %}
         </table>
     </div>
 
@@ -30,15 +34,13 @@
     <form class="form-inline">
         <div class="form-group"> <label>漏洞模板：</label>
             <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+                {% for each in bugtems %}
+                    <option value="{{ each.id }}">{{ each.temlatename }}</option>
+                {% endfor %}
             </select>
         </div>
          <div class="form-group">
-             <a class="btn-lg" href="{% url "addbug" %}">新增漏洞</a>
+             <a class="btn-lg" href="javascript:" target="_blank" id="btnaddbug">新增漏洞</a>
         </div>
 
     </form>
@@ -46,6 +48,12 @@
 
 </div>
 
-
-
+<script>
+    $("#btnaddbug").click(function () {
+        var choosetem = parseInt($("option:selected").val());
+{#           alert(choosetem);#}
+{#           alert(project_id);#}
+           window.location.href = "{% url 'addbug' 3 projectid %}"
+    })
+</script>
 {% endblock %}
