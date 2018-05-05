@@ -1,52 +1,63 @@
-{% extends "mybuggreport/base.html" %}
-<title>{% block title %}添加项目{% endblock %}</title>
-
-{% block content %}
+{% load staticfiles %}
+<script src="{% static 'js/jquery-1.8.3.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<script src="{% static 'js/csrf.js' %}"></script>
 <div class="container">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-        新增项目
-        </div>
-        <div class="panel-body">
-        <form >
+        <form style="margin-top: 15px" onsubmit="return false;">
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-addon">项目名称：</div>
-                    <input type="text" class="form-control" placeholder="请输入项目名称">
+                    {{ project_form.name }}
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-addon">项目负责人：</div>
-                    <input type="text" class="form-control" placeholder="请输入项目负责人">
+                    {{ project_form.projectleader}}
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-addon">项目时间：</div>
-                    <input type="text" class="form-control" placeholder="请输入项目时间">
+                    {{ project_form.projecttime }}
                 </div>
             </div>
 
 
             <div class="form-group">
-                    <input type="submit" class="form-control" value="新增项目">
+                    <input type="submit" class="form-control" value="新增项目" id="btnaddproject">
             </div>
 
         </form>
 
-        </div>
-    </div>
 </div>
+<script>
+
+    $(document).ready(function(){
+        $('#btnaddproject').on('click', function(jqE){
+            var name = $("input[ name='name' ]").val();
+            var projectleader = $("input[ name='projectleader' ]").val();
+            var projecttime = $("input[ name='projecttime' ]").val();
+            $.ajax({
+	        url: '{% url "addproject" %}',
+            type: 'POST',
+            data: {"name": name,"projectleader":projectleader,"projecttime":projecttime},
+            success: function(e){
+                //location.href= "{% url 'index' %}"
+                        if(e == "1"){
+                parent.location.reload();
+                } else {
+                alert("请输入正确的值");
+                }
+
+            },
+	    });
+        jqE.preventDefault();//禁止表单的默认提交动作
+        });
 
 
-
-
-
-
-
-
-
-{% endblock %}
+    })
+</script>

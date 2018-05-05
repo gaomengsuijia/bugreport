@@ -9,8 +9,11 @@
 	<link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="{% static 'js/jquery-1.8.3.min.js' %}"></script>
     <script src="{% static 'js/jquery.cookie.js' %}"></script>
-    {% block link %}
-    {% endblock %}
+    <script src="{% static 'plugins/layer/layer.js' %}"></script>
+    <script src="{% static 'js/csrf.js' %}"></script>
+{% block link %}
+
+{% endblock %}
 </head>
 <body>
 
@@ -24,7 +27,7 @@
         <li><a href="#" target="_blank">{{ user.username }}</a></li>
         <li><a href="{% url "account:userlogout" %}">退出</a></li>
         {% else %}
-            <li><a href="{% url  "account:userlogin" %}" target="_blank">登录</a></li>
+            <li><a href="{% url 'account:userlogin' %}" target="_blank">登录</a></li>
              <li><a href="{% url "account:register" %}" target="_blank">注册</a></li>
         {% endif %}
     </ul>
