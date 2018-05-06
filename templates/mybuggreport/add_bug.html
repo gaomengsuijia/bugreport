@@ -13,34 +13,37 @@
         新增漏洞
         </div>
         <div class="panel-body">
-        <form onclick="return false;">
+        <form enctype="multipart/form-data">
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-addon">漏洞名称：</div>
-                    <input type="text" class="form-control" placeholder="漏洞名称" name="bug">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-addon">漏洞风险：</div>
-                    <input type="text" class="form-control" placeholder="漏洞风险">
+                    <input type="text" class="form-control" placeholder="漏洞名称" name="bug_name">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-addon">风险等级：</div>
-                    <input type="text" class="form-control" placeholder="风险等级">
+                    <input type="text" class="form-control" placeholder="风险等级" name="bug_leval">
                 </div>
             </div>
 
 
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">漏洞模板：</div>
+                    <select class="form-control">
+                        {% for each in bugtems %}
+                            <option value="{{ each.id }}">{{ each.temlatename }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
 
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-addon">漏洞详情：</div>
-                    <textarea id="ck-editor" name="content" class="form-control" rows="3"></textarea>
+                    <textarea id="ck-editor" name="bug_content" class="form-control" rows="3"></textarea>
                 </div>
             </div>
 
@@ -69,10 +72,37 @@
             config.height = 500;
             config.toolbarCanCollapse = true;
         };
-        //新增漏洞
-     $("#btnaddbug").click(function () {
+     
+     //新增漏洞
+     $("#btnaddbug").click(function (jqE) {
+         var bug_name = $("input[name='bug_name']").val();
+         var bug_leval = $("input[name='bug_leval']").val();
+         var bugtemlate = $("option:selected").val();
+         var bug_content = $("textarea[name='bug_content']").val();
+         var a = 1;
+         var urls = '/addbug/'+ String(a) + '/';
+         alert(bug_content)
+         $.ajax({
+	        url: urls,
+            type: 'POST',
+            data: {"bug_name": bug_name,"bug_leval":bug_leval,"bugtemlate":bugtemlate},
+            success: function(e){
+{#                //location.href= "{% url 'index' %}"#}
+{#                        if(e == "1"){#}
+{#                parent.location.reload();#}
+{#                } else {#}
+{#                alert("请输入正确的值");#}
+{#                }#}
 
+                alert(e)
+
+            },
+
+	    });
+          jqE.preventDefault();//非常重要
      })
+
+
     </script>
 
 

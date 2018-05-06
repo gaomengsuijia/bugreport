@@ -1,6 +1,7 @@
 from django.shortcuts import render,HttpResponse
 from .forms import AddprojectForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from mybugreport.models import Bug,Bugtemlate,Project
 from django.db.models import ObjectDoesNotExist
 # Create your views here.
@@ -11,15 +12,14 @@ def projectdetail(request,project_id):
     :param request:
     :return:
     '''
-    #查询出所有的漏洞模板
-    bugtems = Bugtemlate.objects.all()
+
     try:
         print(project_id)
         project = Project.objects.get(id=project_id)
         if project.is_del != 1:
             print(project_id)
             bugs = Bug.objects.filter(project_id=project_id)
-            return render(request, 'mybuggreport/projectdetail.html',{"bugtems":bugtems,"projectid":project_id,"bugs":bugs})
+            return render(request, 'mybuggreport/projectdetail.html',{"projectid":project_id,"bugs":bugs})
     except ObjectDoesNotExist as e:
         return HttpResponse("4")
 
@@ -54,15 +54,21 @@ def delproject(request):
         return HttpResponse("method erro")
 
 
-
-def addbug(request,choosetem,project_id):
+@csrf_exempt
+def addbug(request,project_id):
     '''
     新增bug
     :param request:
     :return:
     '''
+    if request.method == "POST":
+        print(project_id)
+        HttpResponse("1")
+    if request.method == "GET":
 
-    return render(request,"mybuggreport/add_bug.html")
+        # 查询出所有的漏洞模板
+        bugtems = Bugtemlate.objects.all()
+        return render(request,"mybuggreport/add_bug.html",{"bugtems":bugtems})
 
 def index(request):
     '''

@@ -14,3 +14,5 @@ class AddprojectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ('name','projecttime','projectleader')
+
+

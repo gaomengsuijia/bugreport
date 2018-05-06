@@ -24,6 +24,7 @@ class Bug(models.Model):
     bug_name = models.CharField(max_length=100)
     bug_leval = models.CharField(max_length=25)
     bug_createtime = models.DateTimeField(auto_now_add=True)
+    bugtemlate = models.ForeignKey("Bugtemlate")
     bug_content = models.TextField(max_length=2000)
     is_del = models.BooleanField()
 
