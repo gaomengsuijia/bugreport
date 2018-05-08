@@ -26,7 +26,7 @@ class Bug(models.Model):
     bug_createtime = models.DateTimeField(auto_now_add=True)
     bugtemlate = models.ForeignKey("Bugtemlate")
     bug_content = models.TextField(max_length=2000)
-    is_del = models.BooleanField()
+    is_del = models.BooleanField(default=0)
 
     def __str__(self):
         return "bug {}".format(self.bug_name)

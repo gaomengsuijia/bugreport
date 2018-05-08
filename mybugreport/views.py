@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from mybugreport.models import Bug,Bugtemlate,Project
 from django.db.models import ObjectDoesNotExist
+from django.contrib.auth.models import User
 # Create your views here.
 
 def projectdetail(request,project_id):
@@ -62,8 +63,29 @@ def addbug(request,project_id):
     :return:
     '''
     if request.method == "POST":
-        print(project_id)
-        HttpResponse("1")
+        try:
+            print(project_id)
+            project =  Project.objects.get(id=int(project_id))
+            print(project)
+            try:
+                print(request.POST)
+                bug_name = request.POST['bug_name']
+                bug_leval = request.POST['bug_leval']
+                bugtemlate = request.POST['bugtemlate']
+                bug_content = request.POST['bug_content']
+                user = request.user
+                bugtemlate = Bugtemlate.objects.get(id=bugtemlate)
+                newBug = Bug.objects.create(bug_name=bug_name, bug_leval=bug_leval, bug_content=bug_content,bugtemlate=bugtemlate,user=user,project=project)
+                newBug.save()
+                print("保存成功")
+                return HttpResponse("1")
+            except Exception as e:
+                raise Exception()
+                return HttpResponse('3')
+        except ObjectDoesNotExist as e:
+            return HttpResponse("2")
+
+
     if request.method == "GET":
 
         # 查询出所有的漏洞模板
