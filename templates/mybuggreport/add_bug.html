@@ -80,20 +80,21 @@
          var bugtemlate = $("option:selected").val();
          {#var bug_content = $("textarea[name='bug_content']").val();#}
          var bug_content = editor.getData();
-         var a = 1;
+         var a = {{ project_id}};
          var urls = '/addbug/'+ String(a) + '/';
          $.ajax({
 	        url: urls,
             type: 'POST',
             data: {"bug_name": bug_name,"bug_leval":bug_leval,"bugtemlate":bugtemlate,"bug_content":bug_content},
             success: function(e){
-{#                //location.href= "{% url 'index' %}"#}
-{#                        if(e == "1"){#}
-{#                parent.location.reload();#}
-{#                } else {#}
-{#                alert("请输入正确的值");#}
-{#                }#}
-                alert(e)
+                location.href= "{% url 'index' %}";
+                var urls_re = '/projectdetail/'+ String(a) + '/';
+                if(e == "1"){
+                    location.href= urls_re;
+
+                } else {
+                alert("保存失败");
+                }
 
             },
 

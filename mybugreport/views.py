@@ -7,6 +7,35 @@ from django.db.models import ObjectDoesNotExist
 from django.contrib.auth.models import User
 # Create your views here.
 
+@csrf_exempt
+def delbug(request):
+    '''
+    删除bug
+    :param request:
+    :return:
+    '''
+    if not request.user.is_authenticated():
+        return HttpResponse("0")
+    if request.method == "POST":
+        bug_id = int(request.POST['bug_id'])
+        if bug_id == "":
+            return HttpResponse("bug_id is null")
+        else:
+            try:
+                bug = Bug.objects.get(id=bug_id)
+                if bug.is_del == 1:
+                    return HttpResponse("bug is delect")
+                else:
+                    bug.is_del = 1
+                    bug.save()
+                    return HttpResponse("1")
+            except ObjectDoesNotExist as e:
+                return HttpResponse("3")
+
+    else:
+        return HttpResponse("2")
+
+
 def projectdetail(request,project_id):
     '''
     项目详情
@@ -19,22 +48,21 @@ def projectdetail(request,project_id):
         project = Project.objects.get(id=project_id)
         if project.is_del != 1:
             print(project_id)
-            bugs = Bug.objects.filter(project_id=project_id)
+            bugs = Bug.objects.filter(project_id=project_id,is_del=0)
             return render(request, 'mybuggreport/projectdetail.html',{"projectid":project_id,"bugs":bugs})
     except ObjectDoesNotExist as e:
         return HttpResponse("4")
 
 
-
-@login_required(login_url="/account/login")
+@csrf_exempt
 def delproject(request):
     '''
     删除项目
     :param request:
     :return:
     '''
-    if request.user == "":
-        return HttpResponse("3")
+    if not request.user.is_authenticated():
+        return HttpResponse("0")
     if request.method == "POST":
         project_id = request.POST["project_id"]
         if project_id == "":
@@ -62,6 +90,8 @@ def addbug(request,project_id):
     :param request:
     :return:
     '''
+    if request.user == "AnonymousUser":
+        return HttpResponse("0")
     if request.method == "POST":
         try:
             print(project_id)
@@ -85,12 +115,11 @@ def addbug(request,project_id):
         except ObjectDoesNotExist as e:
             return HttpResponse("2")
 
-
     if request.method == "GET":
 
         # 查询出所有的漏洞模板
         bugtems = Bugtemlate.objects.all()
-        return render(request,"mybuggreport/add_bug.html",{"bugtems":bugtems})
+        return render(request,"mybuggreport/add_bug.html",{"bugtems":bugtems,"project_id":project_id})
 
 def index(request):
     '''

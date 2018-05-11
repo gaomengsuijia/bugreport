@@ -61,8 +61,9 @@
 			if(e=="1"){
 			    parent.location.reload();
 			    layer.msg("has been deleted.");
-			}else if(e=="3"){
+			}else if(e=="0"){
 			    layer.msg("没有登录");
+			    location.href = "{% url 'account:userlogin' %}"
             }
 			else{
 			    layer.msg("删除失败");

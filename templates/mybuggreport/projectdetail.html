@@ -22,7 +22,7 @@
                 <td>{{ each.bug_name }}</td>
                 <td>{{ each.bug_leval }}</td>
                 <td><a href="#">查看详情</a></td>
-                <td><a href="#">删除</a></td>
+                <td><a href="javascript:" onclick="delbug(this,{{ each.id }})">删除</a></td>
             </tr>
                 {% empty %}
                 <p>暂无漏洞</p>
@@ -31,11 +31,48 @@
     </div>
 
          <div class="form-group">
-             <a class="btn-lg" href="{% url "addbug" projectid %}" target="_blank">新增漏洞</a>
+             <a class="btn-lg" href="{% url "addbug" projectid %}">新增漏洞</a>
         </div>
 
 
 
 </div>
 
+{% endblock %}
+
+
+{% block boot_script %}
+    <script>
+        function delbug(the,bug_id) {
+            var bug_name = $(the).parents('tr').children('td').eq(0).text();
+    layer.open({
+	    type: 1,
+	    skin: "layui-layer-rim",
+	    area: ["400px", "200px"],
+	    title: "删除项目",
+	    content: '<div class="text-center" style="margin-top:20px"><p>是否确定删除该漏洞：'+bug_name+'</p></div>',
+	    btn:['确定', '取消'],
+	    yes: function(){
+		$.ajax({
+		    url: '{% url "delbug" %}',
+		    type:"POST",
+		    data: {"bug_id":bug_id},
+		    success: function(e){
+			if(e=="1"){
+			    parent.location.reload();
+			    layer.msg("has been deleted.");
+			}else if(e=="0"){
+			    layer.msg("没有登录");
+			    location.href = "{% url 'account:userlogin' %}"
+            }
+			else{
+			    {#layer.msg("删除失败");#}
+			}
+
+		    },
+		})
+	    },
+	});
+        }
+    </script>
 {% endblock %}

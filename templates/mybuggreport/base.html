@@ -20,7 +20,7 @@
 <nav class="navbar navbar-default">
     <div class="container">
     <div class="navbar-header">
-    <a href="#" class="navbar-brand">项目漏洞管理平台</a>
+    <a href="{% url 'index' %}" class="navbar-brand">项目漏洞管理平台</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
         {% if user.is_authenticated %}

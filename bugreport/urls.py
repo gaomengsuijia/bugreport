@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^projectdetail/(\d+)/$', mybugreport_views.projectdetail,name="projectdetail"),
     url(r'^addbug/(\d+)/$', mybugreport_views.addbug,name="addbug"),
     url(r'^delproject/$', mybugreport_views.delproject,name="delproject"),
+    url(r'^delbug/$',mybugreport_views.delbug,name="delbug"),
     url(r'^account/',include('account.urls',namespace='account',app_name='account')),
     ]
